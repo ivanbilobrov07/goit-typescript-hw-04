@@ -1,14 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from "react";
 
-// Опишіть Props
-export function Observer({ children, onContentEndVisible }: Props) {
-  // Вкажіть правильний тип для useRef зверніть увагу, в який DOM елемент ми його передаємо
-  const endContentRef = useRef(null);
+interface IObserverProps {
+  children: ReactNode;
+  onContentEndVisible: () => void;
+}
+
+interface IOptions {
+  rootMargin: string;
+  threshold: number | number[];
+  root: Element | null;
+}
+
+export function Observer({ children, onContentEndVisible }: IObserverProps) {
+  const endContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Вкажіть правильний тип для options, підказка, клас також можна вказувати як тип
-    const options = {
-      rootMargin: '0px',
+    const options: IOptions = {
+      rootMargin: "0px",
       threshold: 1.0,
       root: null,
     };
